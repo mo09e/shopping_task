@@ -4,6 +4,8 @@ require_relative "item"
 
 # このモジュールをインクルードすると、自身の所有するItemインスタンスを操れるようになります。
 module ItemManager
+  include Ownable
+  
   def items # 自身の所有する（自身がオーナーとなっている）全てのItemインスタンスを返します。
     Item.all.select{|item| item.owner == self }
   end

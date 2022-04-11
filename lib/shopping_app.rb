@@ -1,7 +1,13 @@
-require_relative "shopping_app/seller"
+require_relative "shopping_app/ownable"
 require_relative "shopping_app/item"
-require_relative "shopping_app/customer"
+require_relative 'shopping_app/customer'
+require_relative "shopping_app/cart"
+require_relative "shopping_app/item_manager"
+require_relative "shopping_app/user"
+require_relative "shopping_app/wallet"
+require_relative "shopping_app/seller"
 
+#商品
 seller = Seller.new("DICストア")
 10.times{ Item.new("CPU", 40830, seller) }
 10.times{ Item.new("メモリー", 13880, seller) }
@@ -14,9 +20,10 @@ seller = Seller.new("DICストア")
 10.times{ Item.new("CPUクーラー", 13400, seller) }
 10.times{ Item.new("グラフィックボード", 23800, seller) }
 
+#顧客
 puts "🤖 あなたの名前を教えてください"
 customer = Customer.new(gets.chomp)
-
+#顧客
 puts "🏧 ウォレットにチャージする金額を入力にしてください"
 customer.wallet.deposit(gets.chomp.to_i)
 
@@ -38,6 +45,7 @@ while !end_shopping do
 
   puts "🛒 カートの中身"
   customer.cart.items_list
+
   puts "🤑 合計金額: #{customer.cart.total_amount}"
 
   puts "😭 買い物を終了しますか？(yes/no)"
@@ -48,16 +56,23 @@ puts "💸 購入を確定しますか？(yes/no)"
 customer.cart.check_out if gets.chomp == "yes"
 
 puts "୨୧┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈結果┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈୨୧"
+
 puts "️🛍️ ️#{customer.name}の所有物"
 customer.items_list
+
+
 puts "😱👛 #{customer.name}のウォレット残高: #{customer.wallet.balance}"
 
 puts "📦 #{seller.name}の在庫状況"
 seller.items_list
+
 puts "😻👛 #{seller.name}のウォレット残高: #{seller.wallet.balance}"
 
+#カートの中身の番号が反映されていない
 puts "🛒 カートの中身"
 customer.cart.items_list
+
 puts "🌚 合計金額: #{customer.cart.total_amount}"
 
 puts "🎉 終了"
+

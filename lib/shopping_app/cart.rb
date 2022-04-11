@@ -24,16 +24,30 @@ class Cart
 
   def check_out
     return if owner.wallet.balance < total_amount
+
+    #   - カートの中身（Cart#items）のすべてのアイテムの購入金額が、カートのオーナーのウォレットからアイテムのオーナーのウォレットに移されること。
+    self.owner.wallet.withdraw(total_amount)
+    seller = @items[0].owner
+    seller.wallet.deposit(total_amount)
+
+    #   - カートの中身（Cart#items）のすべてのアイテムのオーナー権限が、カートのオーナーに移されること。
+    customer = self.owner
+    @items.map do |item|
+      item.owner = customer
+    end
+
+    #   - カートの中身（Cart#items）が空になること。
+    items.clear
+
+  end
+
   # ## 要件
-  #   - カートの中身（Cart#items）のすべてのアイテムの購入金額が、カートのオーナーのウォレットからアイテムのオーナーのウォレットに移されること。
-  #   - カートの中身（Cart#items）のすべてのアイテムのオーナー権限が、カートのオーナーに移されること。
-  #   - カートの中身（Cart#items）が空になること。
+ 
+  
 
   # ## ヒント
   #   - カートのオーナーのウォレット ==> self.owner.wallet
   #   - アイテムのオーナーのウォレット ==> item.owner.wallet
   #   - お金が移されるということ ==> (？)のウォレットからその分を引き出して、(？)のウォレットにその分を入金するということ
   #   - アイテムのオーナー権限がカートのオーナーに移されること ==> オーナーの書き換え(item.owner = ?)
-  end
-
 end
