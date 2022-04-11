@@ -29,7 +29,6 @@ module ItemManager
       end
     )
   end
-
   private
 
   def stock # 自身の所有するItemインスタンスの在庫状況を返します。
