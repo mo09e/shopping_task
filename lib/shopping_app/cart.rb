@@ -41,10 +41,6 @@ class Cart
 
   end
 
-  # ## 要件
- 
-  
-
   # ## ヒント
   #   - カートのオーナーのウォレット ==> self.owner.wallet
   #   - アイテムのオーナーのウォレット ==> item.owner.wallet
